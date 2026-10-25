@@ -40,7 +40,7 @@
   .gate { position:fixed; inset:0; display:grid; place-items:center; padding:20px; overflow:hidden; isolation:isolate; background:var(--olive-deep); }
   .gate__bg { position:absolute; inset:0; z-index:-3; background:url("https://images.unsplash.com/photo-1510442590145-1ea52d75f1c1?auto=format&fit=crop&w=2000&q=70") center/cover; transform:scale(1.06); animation:drift 24s ease-in-out infinite alternate; }
   .gate::before { content:""; position:absolute; inset:0; z-index:-2; background:radial-gradient(ellipse at 50% 30%, rgba(52,60,37,.18), rgba(29,33,20,.78) 72%), linear-gradient(180deg, rgba(52,60,37,.35), rgba(29,33,20,.82)); }
-  .gate__giant { position:absolute; left:0; right:0; bottom:-3vw; z-index:-1; display:flex; justify-content:center; font-size:26vw; color:var(--cream); opacity:.07; pointer-events:none; user-select:none; }
+  .gate__giant { position:absolute; left:0; right:0; bottom:-3vw; z-index:-1; display:flex; justify-content:center; font-size:18vw; padding:0 2vw; color:var(--cream); opacity:.07; pointer-events:none; user-select:none; }
   @keyframes drift { to { transform:scale(1.14) translate(-1.5%, -1%); } }
   .gate__card { width:min(420px,100%); background:color-mix(in srgb, var(--paper) 96%, transparent); color:var(--ink); border-radius:22px; padding:clamp(26px,5vw,38px); box-shadow:0 40px 90px -20px rgba(0,0,0,.6), 0 0 0 1px rgba(241,233,216,.25); backdrop-filter:blur(8px); animation:rise .9s var(--ease) both; }
   @keyframes rise { from { opacity:0; transform:translateY(24px); } }
