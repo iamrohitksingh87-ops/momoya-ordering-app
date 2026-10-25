@@ -12,6 +12,10 @@ try {
   $plain = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
   if (-not $plain) { Write-Host 'Empty value, nothing changed.'; exit 1 }
   $plain | npx wrangler pages secret put $Name --project-name momoya
+  if ($LASTEXITCODE -ne 0) {
+    Write-Host "`nFAILED: the secret was NOT set. If wrangler asked for a login or API token, run  npx wrangler login  first, then run this again." -ForegroundColor Red
+    exit 1
+  }
   Write-Host "`nDone. Secrets apply to the next deployment: run  npm run deploy  to pick it up."
 } finally {
   [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr)
