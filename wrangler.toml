@@ -1,0 +1,8 @@
+name = "momoya"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "momoya"
+database_id = "e91ef1da-2684-4c41-bf1d-ab58066bdfba"

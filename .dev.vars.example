@@ -1,0 +1,8 @@
+# Copy to .dev.vars for local development (wrangler pages dev reads it). Never commit real values.
+ADMIN_PASSWORD=change-me-locally
+
+# Optional. Without these the site uses its built-in test payment gateway / skips emails.
+# RAZORPAY_KEY_ID=rzp_test_xxxxxxxx
+# RAZORPAY_KEY_SECRET=xxxxxxxx
+# RESEND_API_KEY=re_xxxxxxxx
+# MAIL_FROM=MOMOYA <orders@yourdomain.com>

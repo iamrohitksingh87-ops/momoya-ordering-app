@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Create local D1 and start the app (site + Functions)
+        env:
+          CI_ADMIN_PASSWORD: ci-only-admin-password
+        run: |
+          printf 'ADMIN_PASSWORD=%s\n' "$CI_ADMIN_PASSWORD" > .dev.vars
+          npx wrangler d1 execute momoya --local --file=schema.sql
+          nohup npx wrangler pages dev dist --port 8788 > wrangler.log 2>&1 &
+          for i in $(seq 1 40); do curl -sf localhost:8788/api/menu >/dev/null && break; sleep 2; done
+          curl -sf localhost:8788/api/menu
+      - name: API end-to-end tests
+        env:
+          ADMIN_PASSWORD: ci-only-admin-password
+        run: npm run test:api
+      - name: Show server log on failure
+        if: failure()
+        run: tail -n 80 wrangler.log

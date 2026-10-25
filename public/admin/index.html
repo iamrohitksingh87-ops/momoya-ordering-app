@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>MOMOYA · Kitchen desk</title>
+<style>
+  :root { --olive:#4a5536; --olive-deep:#343c25; --cream:#f1e9d8; --paper:#f6f1e6; --red:#b23a26; --ink:#15150f; --mono: ui-monospace, "DM Mono", Menlo, Consolas, monospace; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.45 Georgia, "Fraunces", serif; }
+  header { background: var(--olive-deep); color: var(--cream); padding: 14px clamp(16px, 4vw, 40px); display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 5; }
+  header h1 { margin: 0; font-weight: 400; font-size: 22px; letter-spacing: 0.04em; }
+  header .sp { flex: 1; }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+  button { font: inherit; cursor: pointer; }
+  .btn { background: var(--red); color: var(--cream); border: 0; border-radius: 999px; padding: 10px 20px; }
+  .btn.ghost { background: none; border: 1px solid currentColor; color: inherit; padding: 7px 16px; }
+  main { padding: 22px clamp(16px, 4vw, 40px) 60px; max-width: 1200px; margin: auto; }
+  .login { max-width: 360px; margin: 14vh auto; display: grid; gap: 14px; }
+  .login h2 { font-weight: 330; font-size: 38px; margin: 0; }
+  input, select { font: inherit; padding: 11px 14px; border-radius: 10px; border: 1px solid #bdb59c; background: #fff; width: 100%; }
+  .err { color: var(--red); min-height: 1.4em; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 18px; }
+  .stat { background: var(--cream); border-radius: 12px; padding: 14px 16px; }
+  .stat b { display: block; font-size: 30px; font-weight: 400; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+  .tabs button { background: none; border: 1px solid var(--olive); color: var(--olive-deep); border-radius: 999px; padding: 8px 18px; }
+  .tabs button[aria-selected="true"] { background: var(--olive-deep); color: var(--cream); }
+  .card { background: #fff; border: 1px solid #d9d1ba; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; display: grid; gap: 6px; }
+  .card.fresh { animation: flash 2.4s ease-out; }
+  @keyframes flash { from { background: #f6d9d2; } to { background: #fff; } }
+  .row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; }
+  .pill { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--cream); font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .pill.bad { background: var(--red); color: var(--cream); } .pill.ok { background: var(--olive); color: var(--cream); }
+  .muted { color: #6b665a; font-size: 14px; }
+  .acts { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .acts select { width: auto; }
+  .empty { color: #6b665a; padding: 30px 0; text-align: center; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<header><h1>MOMOYA · Kitchen desk</h1><span class="sp"></span><span class="mono" id="live" hidden>Live</span><button class="btn ghost mono" id="out" hidden>Sign out</button></header>
+<main>
+  <form class="login" id="login" hidden>
+    <h2>Sign in</h2>
+    <p class="muted">Staff only. This is the admin side of the MOMOYA demo.</p>
+    <input type="password" id="pw" placeholder="Admin password" autocomplete="current-password" required />
+    <button class="btn" type="submit">Enter</button>
+    <p class="err" id="lerr" role="alert"></p>
+  </form>
+  <p class="empty" id="notconf" hidden>Admin is not configured on this deployment (no ADMIN_PASSWORD secret set).</p>
+
+  <section id="app" hidden>
+    <div class="stats" id="stats"></div>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="orders">Orders</button>
+      <button role="tab" aria-selected="false" data-tab="bookings">Bookings</button>
+      <button role="tab" aria-selected="false" data-tab="reviews">Reviews</button>
+    </div>
+    <div id="list"></div>
+  </section>
+</main>
+<script>
+const $ = (s) => document.querySelector(s);
+const rupee = (n) => '₹' + Number(n).toLocaleString('en-IN');
+function h(tag, attrs = {}, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (v == null || v === false) continue; k === 'class' ? (el.className = v) : k.startsWith('on') ? el.addEventListener(k.slice(2), v) : el.setAttribute(k, v === true ? '' : v); }
+  for (const kid of kids.flat()) if (kid != null && kid !== false) el.append(kid.nodeType ? kid : document.createTextNode(kid));
+  return el;
+}
+async function call(path, method = 'GET', body) {
+  const r = await fetch(path, { method, headers: body ? { 'content-type': 'application/json' } : {}, body: body ? JSON.stringify(body) : undefined });
+  const j = await r.json().catch(() => ({}));
+  if (r.status === 401 && !path.endsWith('/login')) { showLogin(); throw new Error('signed out'); }
+  if (!r.ok) throw new Error(j.error || 'Request failed');
+  return j;
+}
+const STATUS = { awaiting_payment: 'Awaiting payment', payment_failed: 'Payment failed', placed: 'Placed', preparing: 'Preparing', out_for_delivery: 'Out for delivery', delivered: 'Delivered', cancelled: 'Cancelled' };
+let tab = 'orders', timer = null, seen = new Set(), first = true;
+
+function showLogin(configured = true) {
+  clearInterval(timer); $('#app').hidden = true; $('#out').hidden = true; $('#live').hidden = true;
+  $('#login').hidden = !configured; $('#notconf').hidden = configured;
+}
+async function start() {
+  const s = await fetch('/api/admin/login').then((r) => r.json());
+  if (!s.configured) return showLogin(false);
+  if (!s.signedIn) return showLogin();
+  $('#login').hidden = true; $('#app').hidden = false; $('#out').hidden = false; $('#live').hidden = false;
+  first = true; render(); clearInterval(timer); timer = setInterval(render, 6000);
+}
+async function render() {
+  try {
+    const list = $('#list');
+    if (tab === 'orders') {
+      const { orders, stats } = await call('/api/admin/orders');
+      $('#stats').replaceChildren(stat('Orders today', stats.today), stat('Revenue today', rupee(stats.revenueToday)), stat('Awaiting payment', stats.awaitingPayment));
+      list.replaceChildren(...(orders.length ? orders.map(orderCard) : [h('p', { class: 'empty' }, 'No orders yet. Place one on the site and it appears here.')]));
+      if (!first && orders.some((o) => !seen.has(o.id))) beep();
+      orders.forEach((o) => seen.add(o.id)); first = false;
+    } else if (tab === 'bookings') {
+      const { bookings } = await call('/api/admin/bookings'); $('#stats').replaceChildren(stat('Upcoming bookings', bookings.length));
+      list.replaceChildren(...(bookings.length ? bookings.map(bookingCard) : [h('p', { class: 'empty' }, 'No upcoming bookings.')]));
+    } else {
+      const r = await fetch('/api/reviews').then((x) => x.json()); $('#stats').replaceChildren(stat('Reviews', r.count), stat('Average', r.average ?? '–'));
+      list.replaceChildren(...(r.reviews.length ? r.reviews.map(reviewCard) : [h('p', { class: 'empty' }, 'No reviews yet.')]));
+    }
+  } catch (e) { if (e.message !== 'signed out') $('#list').prepend(h('p', { class: 'err' }, e.message)); }
+}
+const stat = (label, v) => h('div', { class: 'stat' }, h('span', { class: 'mono' }, label), h('b', {}, v));
+function orderCard(o) {
+  const sel = h('select', { 'aria-label': 'Order status', onchange: async (e) => { try { await call('/api/admin/orders', 'POST', { id: o.id, status: e.target.value }); render(); } catch (x) { alert(x.message); } } },
+    ...[['auto', 'Auto (demo)'], ['placed', 'Placed'], ['preparing', 'Preparing'], ['out_for_delivery', 'Out for delivery'], ['delivered', 'Delivered'], ['cancelled', 'Cancel order']].map(([v, t]) => h('option', { value: v, selected: v === (o.manual ? o.status : 'auto') }, t)));
+  const payable = ['paid', 'cod'].includes(o.payStatus);
+  return h('article', { class: 'card' + (!first && !seen.has(o.id) ? ' fresh' : '') },
+    h('div', { class: 'row' }, h('strong', {}, `${o.id} · ${o.name}`), h('span', {}, h('span', { class: 'pill ' + (o.status === 'cancelled' || o.status === 'payment_failed' ? 'bad' : o.status === 'delivered' ? 'ok' : '') }, STATUS[o.status] || o.status), ' ', h('span', { class: 'pill' }, o.method === 'cod' ? 'COD' : o.payStatus))),
+    h('div', { class: 'muted' }, o.items.map((l) => `${l.qty}× ${l.name}`).join(', ') + ' — ' + rupee(o.total)),
+    h('div', { class: 'muted' }, `${o.address} · ${o.phone}${o.email ? ' · ' + o.email : ''}${o.note ? ' · “' + o.note + '”' : ''}`),
+    h('div', { class: 'row' }, h('span', { class: 'muted' }, new Date(o.createdAt).toLocaleString('en-IN')), payable ? h('div', { class: 'acts' }, sel) : null));
+}
+function bookingCard(b) {
+  return h('article', { class: 'card' },
+    h('div', { class: 'row' }, h('strong', {}, `${b.date} · ${b.time} · ${b.guests} guests`), h('span', { class: 'pill' }, b.id)),
+    h('div', { class: 'muted' }, `${b.name} · ${b.phone}${b.email ? ' · ' + b.email : ''}${b.seating ? ' · ' + b.seating : ''} · ${b.tables_used} table(s)${b.notes ? ' · “' + b.notes + '”' : ''}`),
+    h('div', { class: 'acts' }, h('button', { class: 'btn ghost', onclick: async () => { if (!confirm(`Cancel ${b.id}? The tables become available again.`)) return; await call('/api/admin/bookings', 'POST', { id: b.id, action: 'cancel' }); render(); } }, 'Cancel booking')));
+}
+function reviewCard(v) {
+  return h('article', { class: 'card' },
+    h('div', { class: 'row' }, h('strong', {}, `${v.name} · ${'★'.repeat(v.rating)}${'☆'.repeat(5 - v.rating)}`), v.verified ? h('span', { class: 'pill ok' }, 'Ordered here') : null),
+    h('div', {}, v.text),
+    h('div', { class: 'acts' }, h('button', { class: 'btn ghost', onclick: async () => { if (!confirm('Delete this review?')) return; await call('/api/admin/reviews', 'POST', { id: v.id, action: 'delete' }); render(); } }, 'Delete review')));
+}
+function beep() { try { const c = new (window.AudioContext || window.webkitAudioContext)(), o = c.createOscillator(), g = c.createGain(); o.connect(g); g.connect(c.destination); o.frequency.value = 880; g.gain.setValueAtTime(0.12, c.currentTime); g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.4); o.start(); o.stop(c.currentTime + 0.4); } catch { /* audio blocked until a click */ } }
+
+$('#login').addEventListener('submit', async (e) => {
+  e.preventDefault(); $('#lerr').textContent = '';
+  try { await call('/api/admin/login', 'POST', { password: $('#pw').value }); $('#pw').value = ''; start(); }
+  catch (x) { if (x.message !== 'signed out') $('#lerr').textContent = x.message; }
+});
+$('#out').addEventListener('click', async () => { await fetch('/api/admin/login', { method: 'DELETE' }); showLogin(); });
+document.querySelectorAll('[data-tab]').forEach((b) => b.addEventListener('click', () => {
+  tab = b.dataset.tab; document.querySelectorAll('[data-tab]').forEach((x) => x.setAttribute('aria-selected', x === b)); render();
+}));
+start();
+</script>
+</body>
+</html>

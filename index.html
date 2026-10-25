@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOMOYA — Hand-folded Himalayan Momo House</title>
+    <meta name="description" content="MOMOYA is a contemporary momo house. Hand-folded Himalayan dumplings, slow broths and fire-roasted achar — steamed to order, served late." />
+    <meta name="theme-color" content="#4a5536" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <!-- ───────── NAV ───────── -->
+    <header class="nav" data-nav>
+      <a href="#top" class="nav__brand" aria-label="MOMOYA — home"><span data-logo="logo--nav"></span></a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#story">Story</a>
+        <a href="#menu">Menu</a>
+        <a href="#house">The House</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#reserve" class="nav__cta">Reserve</a>
+      </nav>
+      <button class="nav__cart" type="button" data-open-cart aria-label="Open your order">Order <span class="cartn" data-cart-count hidden>0</span></button>
+      <button class="nav__toggle" aria-expanded="false" aria-controls="sheet" data-toggle><span></span><span></span><span class="sr">Open menu</span></button>
+    </header>
+    <div class="sheet" id="sheet" data-sheet hidden>
+      <a href="#story">Story</a><a href="#menu">Menu</a><a href="#house">The House</a><a href="#reviews">Reviews</a><a href="#reserve">Reserve</a>
+    </div>
+
+    <main id="main">
+      <!-- ───────── 1 · HERO ───────── -->
+      <section class="hero" id="top">
+        <h1 class="hero__logo"><span data-logo="logo--hero"></span></h1>
+
+        <div class="hero__plate" aria-hidden="true">
+          <div class="hero__plate-spin" data-plate>
+            <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1400&h=1400&q=80" alt="" fetchpriority="high" />
+          </div>
+          <span data-seal="seal--hero" data-text="STEAMED TO ORDER · FOLDED BY HAND · SERVED LATE · "></span>
+        </div>
+
+        <div class="hero__copy">
+          <p class="eyebrow">No. 01 — Momo House</p>
+          <h2 class="hero__headline" data-split>
+            <span class="line"><span>Folded by hand,</span></span>
+            <span class="line"><span><em>steamed</em> to order.</span></span>
+          </h2>
+          <p class="hero__sub" data-fade>Himalayan dumplings with eighteen pleats, slow-simmered broths and fire-roasted achar — made in small batches, all evening, for long tables.</p>
+          <a href="#reserve" class="btn btn--cream" data-fade>Reserve a table</a>
+        </div>
+
+        <p class="hero__meta mono" data-fade><span>Open nightly</span><span>17:00 — 01:00</span></p>
+      </section>
+
+      <!-- ───────── 2 · BRAND STORY ───────── -->
+      <section class="story" id="story">
+        <div class="timeline">
+          <span class="timeline__year">1998</span>
+          <span class="timeline__track"><span class="timeline__line" data-line></span><span class="timeline__dot" data-dot></span></span>
+          <span class="timeline__year">2026</span>
+        </div>
+        <p class="timeline__caption mono"><span>Asan Tole, Kathmandu</span><span>A grandmother's recipe, carried across</span><span>Your table, tonight</span></p>
+
+        <div class="story__body">
+          <h2 class="story__title" data-split>
+            <span class="line"><span>Our take</span></span>
+            <span class="line"><span>on the</span></span>
+            <span class="line"><span><em>Himalayan</em></span></span>
+            <span class="line"><span>momo.</span></span>
+          </h2>
+          <div class="story__text">
+            <p data-fade>MOMOYA began as one woman's Saturday ritual in a Kathmandu courtyard — a wooden board, a bowl of spiced filling and a family folding until the steamers ran out.</p>
+            <p data-fade>We kept the ritual and changed the room. Dough rolled thin every afternoon, fillings ground by hand, tomato-sesame achar charred over open flame. Nothing frozen, nothing rushed. <em>Ya</em> means house — this is ours, and the door is open.</p>
+            <span data-seal="seal--story"></span>
+          </div>
+        </div>
+      </section>
+
+      <div class="duo" aria-label="In the kitchen">
+        <figure class="duo__item" data-reveal>
+          <img loading="lazy" src="https://images.unsplash.com/photo-1589047133531-570405874c6a?auto=format&fit=crop&w=1400&h=1000&q=80" alt="Hands pinching pleats into a raw momo over a wooden board" data-parallax />
+          <figcaption class="mono">Fold — eighteen pleats, every time</figcaption>
+        </figure>
+        <figure class="duo__item" data-reveal>
+          <img loading="lazy" src="https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e?auto=format&fit=crop&w=1400&h=1000&q=80" alt="Steam rising from a stacked bamboo steamer" data-parallax />
+          <figcaption class="mono">Steam — nine minutes, no more</figcaption>
+        </figure>
+      </div>
+
+      <!-- ───────── 3 · SIGNATURE MENU ───────── -->
+      <section class="menu" id="menu">
+        <div class="ribbons" aria-hidden="true">
+          <div class="ribbon ribbon--a"><div class="ribbon__track" data-marquee="-1">
+            <span>Jhol</span><i>✦</i><span>Kothey</span><i>✦</i><span>Timmur</span><i>✦</i><span>Sadeko</span><i>✦</i><span>Chilli</span><i>✦</i><span>Sesame</span><i>✦</i>
+            <span>Jhol</span><i>✦</i><span>Kothey</span><i>✦</i><span>Timmur</span><i>✦</i><span>Sadeko</span><i>✦</i><span>Chilli</span><i>✦</i><span>Sesame</span><i>✦</i>
+          </div></div>
+          <div class="ribbon ribbon--b"><div class="ribbon__track" data-marquee="1">
+            <span>Steamed</span><i>✦</i><span>Pan-seared</span><i>✦</i><span>In broth</span><i>✦</i><span>Fire-roasted</span><i>✦</i><span>Folded by hand</span><i>✦</i>
+            <span>Steamed</span><i>✦</i><span>Pan-seared</span><i>✦</i><span>In broth</span><i>✦</i><span>Fire-roasted</span><i>✦</i><span>Folded by hand</span><i>✦</i>
+          </div></div>
+        </div>
+
+        <div class="menu__head">
+          <p class="eyebrow eyebrow--olive">The Signature Steamer</p>
+          <h2 class="menu__title" data-split><span class="line"><span>Six momos,</span></span><span class="line"><span><em>one obsession.</em></span></span></h2>
+        </div>
+
+        <div class="menu__grid">
+          <figure class="polaroid polaroid--l" data-tilt="-6">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1694850184798-320a8e10bb5e?auto=format&fit=crop&w=900&h=1100&q=80" alt="Momos in a pool of red chilli-sesame jhol" />
+            <figcaption class="mono">Jhol, no. 01</figcaption>
+          </figure>
+
+          <ol class="dishes">
+            <li class="dish" data-fade data-dish="jhol">
+              <div class="dish__row"><h3>Jhol Momo</h3><span class="dish__dots"></span><span class="dish__price">&#8377;219</span><button class="add mono" type="button" data-add="jhol" aria-label="Add Jhol Momo to order">Add</button></div>
+              <p class="mono">Pork &amp; ginger momo drowned in tomato-sesame broth, timmur, coriander. <b>Signature</b></p>
+            </li>
+            <li class="dish" data-fade data-dish="kothey">
+              <div class="dish__row"><h3>Kothey</h3><span class="dish__dots"></span><span class="dish__price">&#8377;199</span><button class="add mono" type="button" data-add="kothey" aria-label="Add Kothey to order">Add</button></div>
+              <p class="mono">Half-moon, pan-seared on one side, crisp lace skirt, burnt-chilli achar.</p>
+            </li>
+            <li class="dish" data-fade data-dish="timmur">
+              <div class="dish__row"><h3>Timmur Chicken</h3><span class="dish__dots"></span><span class="dish__price">&#8377;189</span><button class="add mono" type="button" data-add="timmur" aria-label="Add Timmur Chicken to order">Add</button></div>
+              <p class="mono">Free-range chicken, Sichuan-adjacent Himalayan pepper, spring onion oil.</p>
+            </li>
+            <li class="dish" data-fade data-dish="sadeko">
+              <div class="dish__row"><h3>Sadeko Mushroom</h3><span class="dish__dots"></span><span class="dish__price">&#8377;189</span><button class="add mono" type="button" data-add="sadeko" aria-label="Add Sadeko Mushroom to order">Add</button></div>
+              <p class="mono">Wild mushroom &amp; paneer, tossed in mustard oil, lime, toasted soy. <b>VG</b></p>
+            </li>
+            <li class="dish" data-fade data-dish="chilli">
+              <div class="dish__row"><h3>Chilli Momo</h3><span class="dish__dots"></span><span class="dish__price">&#8377;199</span><button class="add mono" type="button" data-add="chilli" aria-label="Add Chilli Momo to order">Add</button></div>
+              <p class="mono">Fried, then wok-tossed with charred peppers, honey &amp; dalle chilli. <b>Hot</b></p>
+            </li>
+            <li class="dish" data-fade data-dish="sesame">
+              <div class="dish__row"><h3>Black Sesame</h3><span class="dish__dots"></span><span class="dish__price">&#8377;129</span><button class="add mono" type="button" data-add="sesame" aria-label="Add Black Sesame to order">Add</button></div>
+              <p class="mono">Sweet momo, jaggery &amp; black sesame, brown-butter dip. To finish.</p>
+            </li>
+            <li class="dishes__foot" data-fade>
+              <button type="button" class="btn btn--red" data-open-cart>View order <span class="cartn" data-cart-count hidden>0</span></button>
+              <p class="mono">All momos — 8 pieces. Delivery in Lucknow, free over &#8377;499.</p>
+            </li>
+          </ol>
+
+          <figure class="polaroid polaroid--r" data-tilt="5">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1768326119773-05cae29f4106?auto=format&fit=crop&w=900&h=1100&q=80" alt="Golden pan-seared kothey momo with herbs" />
+            <figcaption class="mono">Kothey, no. 02</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ───────── 4 · CINEMATIC GALLERY ───────── -->
+      <section class="cinema" aria-label="Gallery">
+        <div class="cinema__pin" data-cinema>
+          <div class="cinema__frame" data-cinema-frame>
+            <img loading="lazy" src="https://images.unsplash.com/photo-1510442590145-1ea52d75f1c1?auto=format&fit=crop&w=2400&q=80" alt="Steam rising from a bamboo steamer of momos" />
+          </div>
+          <div class="cinema__title" data-cinema-title>
+            <p class="mono">Reel 02 — After dark</p>
+            <h2>Steam, smoke<br /><em>&amp; late tables.</em></h2>
+          </div>
+        </div>
+
+        <div class="mosaic">
+          <figure class="m m1" data-reveal><img loading="lazy" src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=1200&h=1500&q=80" alt="A table of dumpling dishes and dipping sauces" data-parallax /></figure>
+          <figure class="m m2" data-reveal><img loading="lazy" src="https://images.unsplash.com/photo-1570604127008-f644337cfb8b?auto=format&fit=crop&w=1200&h=900&q=80" alt="Hands folding dumplings on a floured surface" data-parallax /></figure>
+          <p class="m mtxt mono" data-fade>Our kitchen folds roughly 2,400 momos a night. We stop when the dough runs out.</p>
+          <figure class="m m3" data-reveal><img loading="lazy" src="https://images.unsplash.com/photo-1526346698789-22fd84314424?auto=format&fit=crop&w=1000&h=1300&q=80" alt="Bright red dalle chillies" data-parallax /></figure>
+          <figure class="m m4" data-reveal><img loading="lazy" src="https://images.unsplash.com/photo-1626322751504-930506dd41ca?auto=format&fit=crop&w=1600&h=1000&q=80" alt="A plate of dumplings with chopsticks on dark linen" data-parallax /></figure>
+          <figure class="m m5" data-reveal><img loading="lazy" src="https://images.unsplash.com/photo-1789565129390-03ee53aea93f?auto=format&fit=crop&w=1200&h=1200&q=80" alt="Rows of freshly folded momos in a large pan" data-parallax /></figure>
+        </div>
+      </section>
+
+      <!-- ───────── 5 · BRAND EXPERIENCE ───────── -->
+      <section class="house" id="house">
+        <p class="house__addr mono" data-fade>Lucknow, Uttar Pradesh</p>
+        <blockquote class="house__quote" data-split>
+          <span class="line"><span><em>Every fold is</em></span></span>
+          <span class="line"><span><em>a small promise.</em></span></span>
+        </blockquote>
+        <div class="house__mark" data-fade><span data-logo="logo--house" data-label="false"></span></div>
+
+        <ol class="rituals">
+          <li data-fade><span class="mono">01 — Arrive</span><h3>A counter, not a queue.</h3><p>Sit at the steam bar and watch the folders work, or take the long table in the back for eight.</p></li>
+          <li data-fade><span class="mono">02 — Share</span><h3>Steamers to the middle.</h3><p>Everything is built for passing. Order a round, then another — momos come out as they are ready.</p></li>
+          <li data-fade><span class="mono">03 — Linger</span><h3>Chiya until late.</h3><p>Spiced milk tea, Himalayan millet spirits and natural wines poured until one in the morning.</p></li>
+        </ol>
+      </section>
+
+      <!-- ───────── 6 · RESERVATION ───────── -->
+      <section class="reserve" id="reserve">
+        <div class="reserve__form-wrap">
+          <h2 class="reserve__title" data-split><span class="line"><span>Reserve a table</span></span></h2>
+          <p class="reserve__lede mono">Tables of 1 — 10. Booked live: full times grey out. Closed Mondays.</p>
+
+          <form class="form" data-form novalidate>
+            <label class="f"><span>Name</span><input name="name" autocomplete="name" placeholder="Your name" required /></label>
+            <label class="f"><span>Phone</span><input name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="98765 43210" required /></label>
+            <label class="f f--wide"><span>Email (optional, for a confirmation)</span><input name="email" type="email" autocomplete="email" placeholder="you@example.com" /></label>
+            <label class="f"><span>Date</span><input name="date" type="date" required /></label>
+            <label class="f"><span>Time</span>
+              <select name="time" required>
+                <option value="">Select…</option>
+                <option>17:30</option><option>18:00</option><option>18:30</option><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option><option>21:30</option><option>22:00</option><option>22:30</option>
+              </select>
+            </label>
+            <label class="f"><span>Guests</span>
+              <select name="guests" required>
+                <option value="">Select…</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+              </select>
+            </label>
+            <label class="f"><span>Seating</span>
+              <select name="seating">
+                <option>No preference</option><option>Steam bar</option><option>Long table</option><option>Window booth</option>
+              </select>
+            </label>
+            <label class="f f--wide"><span>Notes</span><textarea name="notes" rows="3" placeholder="Allergies, celebrations, a favourite folder…"></textarea></label>
+            <div class="form__foot f--wide">
+              <button class="btn btn--red btn--wide" type="submit">Request reservation</button>
+              <p class="form__status mono" role="status" aria-live="polite" data-status></p>
+            </div>
+          </form>
+        </div>
+
+        <figure class="reserve__img" data-reveal>
+          <img loading="lazy" src="https://images.unsplash.com/photo-1617543140266-a805c6f5e04e?auto=format&fit=crop&w=1200&h=1500&q=80" alt="A bamboo steamer of momos on a dark wooden table" data-parallax />
+          <figcaption>
+            <span class="mono">Hours</span>
+            <span>Tue — Sun · 17:00 — 01:00</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- ───────── 6b · REVIEWS ───────── -->
+      <section class="reviews" id="reviews">
+        <div class="reviews__head">
+          <p class="eyebrow">Table talk</p>
+          <h2 class="reviews__title">What people say.</h2>
+          <p class="mono" data-review-summary aria-live="polite"></p>
+        </div>
+        <ul class="reviews__list" data-review-list></ul>
+        <form class="form reviews__form" data-review-form novalidate>
+          <h3 class="reviews__formtitle">Leave a review</h3>
+          <fieldset class="stars f--wide"><legend class="mono">Rating</legend>
+            <div class="stars__row">
+            <input type="radio" name="rating" id="r5" value="5" /><label for="r5" title="5 stars">★</label>
+            <input type="radio" name="rating" id="r4" value="4" /><label for="r4" title="4 stars">★</label>
+            <input type="radio" name="rating" id="r3" value="3" /><label for="r3" title="3 stars">★</label>
+            <input type="radio" name="rating" id="r2" value="2" /><label for="r2" title="2 stars">★</label>
+            <input type="radio" name="rating" id="r1" value="1" /><label for="r1" title="1 star">★</label>
+            </div>
+          </fieldset>
+          <label class="f"><span>Name</span><input name="name" maxlength="40" autocomplete="given-name" placeholder="First name" required /></label>
+          <label class="f f--wide"><span>Your review</span><textarea name="text" rows="3" maxlength="500" placeholder="The jhol, the folds, the heat…" required></textarea></label>
+          <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" /></label>
+          <details class="f--wide reviews__verify"><summary class="mono">Ordered from us? Add your order ID for an “Ordered here” badge</summary>
+            <div class="form form--inner">
+              <label class="f"><span>Order ID</span><input name="orderId" placeholder="MM-XXXXXX" autocapitalize="characters" /></label>
+              <label class="f"><span>Mobile used</span><input name="phone" type="tel" /></label>
+            </div>
+          </details>
+          <div class="form__foot f--wide">
+            <button class="btn btn--red btn--wide" type="submit">Post review</button>
+            <p class="form__status mono" role="status" aria-live="polite" data-review-status></p>
+          </div>
+        </form>
+      </section>
+
+      <div class="duo duo--flush" aria-hidden="true">
+        <figure class="duo__item"><img loading="lazy" src="https://images.unsplash.com/photo-1559667709-eabb5b50117a?auto=format&fit=crop&w=1400&h=900&q=80" alt="" data-parallax /></figure>
+        <figure class="duo__item"><img loading="lazy" src="https://images.unsplash.com/photo-1687068328974-13261a846e58?auto=format&fit=crop&w=1400&h=900&q=80" alt="" data-parallax /></figure>
+      </div>
+    </main>
+
+    <!-- ───────── 7 · FOOTER ───────── -->
+    <footer class="footer">
+      <div class="footer__top">
+        <span data-seal="seal--footer"></span>
+        <nav class="footer__nav" aria-label="Footer">
+          <a href="#story">Story</a><a href="#menu">Menu</a><a href="#house">The House</a><a href="#reviews">Reviews</a><a href="#reserve">Reserve</a><a href="#" data-open-track>Track an order</a>
+        </nav>
+        <div class="footer__visit">
+          <p class="mono">Visit</p>
+          <p>Lucknow, Uttar Pradesh</p>
+          <a href="#reserve" class="btn btn--red">Reserve now</a>
+        </div>
+        <div class="footer__visit">
+          <p class="mono">Follow</p>
+          <p><a href="#" rel="noopener">Instagram</a><br /><a href="mailto:hello@momoya.house">hello@momoya.house</a></p>
+        </div>
+      </div>
+      <div class="footer__logo"><span data-logo="logo--footer"></span></div>
+      <div class="footer__base mono">
+        <span>© 2026 MOMOYA Momo House</span>
+        <span>Concept project — demo orders only, nothing is delivered</span>
+        <a href="#top" data-top>Back to top ↑</a>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
